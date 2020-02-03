@@ -1,0 +1,35 @@
+AdressDto JSON:
+
+{
+	"city" : "Vilnius",
+    "street": "Didzioji",
+    "number": 66
+}
+
+EstateDto JSON:
+
+{
+    "adress": {
+				
+				"city" : "Vilnius",
+				"street": "Didzioji",
+				"number": 67
+			},
+    "owner": "Petras",
+    "propertySize": 33.6,
+    "marketValue": 6666,
+    "estateType": "HOUSE"
+}
+
+search object:
+
+{    "adress": {
+
+				"city" : "Vilnius",
+				"street": "Didzioji",
+				"number": 67
+			},
+
+    "size": 33.6,
+    "buildingType": "HOUSE"
+}
