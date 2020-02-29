@@ -7,6 +7,7 @@ import com.estate.estate.model.Adress;
 import com.estate.estate.model.Estate;
 import com.estate.estate.model.EstateType;
 import com.estate.estate.repository.EstateRepository;
+import com.estate.estate.utils.ValidationException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
@@ -62,7 +63,7 @@ class EstateServiceImplTest {
         adressDto.setNumber(null);
 
         //when
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(ValidationException.class,
                 () -> {
                     service.findEstateByAdress(adressDto);
                 }
@@ -94,7 +95,7 @@ class EstateServiceImplTest {
         estateDto.setMarketValue(null);
 
         //when
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(ValidationException.class,
                 () -> {
                     service.saveEstate(estateDto);
                 });
@@ -185,11 +186,8 @@ class EstateServiceImplTest {
         estate3.setId(3);
         estate3.setMarketValue(200);
         estate3.setPropertySize(1500);
-        Estate estate4 = createEstate();
-        estate4.setId(4);
-        estate4.setMarketValue(250);
-        estate4.setPropertySize(1600);
-        List<Estate> resultList = Arrays.asList(estate1, estate2, estate3, estate4);
+
+        List<Estate> resultList = Arrays.asList(estate1, estate2, estate3);
 
         when(estateRepository.customSearch(any())).thenReturn(resultList);
 

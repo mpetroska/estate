@@ -14,4 +14,5 @@ public class SearchEstate {
     private EstateType buildingType;
     private Double size;
     private String owner;
+    private boolean limitTo3;
 }

@@ -5,49 +5,61 @@ import com.estate.estate.dto.EstateDto;
 import com.estate.estate.dto.SearchEstateDto;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
 /**
  * API operation on Estate
  */
-@RequestMapping("/estate")
 public interface EstateOperations {
 
     /**
      * Retrieve one Estate based on Adress property
+     *
+     * @param adress the adress
+     * @return the estate
      */
-    @GetMapping("")
     ResponseEntity<EstateDto> getEstate(AdressDto adress);
 
     /**
      * Saves Estate to database
+     *
+     * @param estate the estate
+     * @return the response entity
      */
-    @PostMapping("")
     ResponseEntity<EstateDto> saveEstate(@RequestBody EstateDto estate);
 
     /**
      * Updates existing Estate in Database
+     *
+     * @param estate the estate
+     * @return the response entity
      */
-    @PutMapping("")
     ResponseEntity<EstateDto> updateEstate(@RequestBody EstateDto estate);
 
     /**
      * Deletes Estate from database
+     *
+     * @param adress the adress
+     * @return the response entity
      */
-    @DeleteMapping("")
     ResponseEntity<String> deleteEstate(@RequestBody AdressDto adress);
 
     /**
      * Caslculates tax based on owner property stored in database
+     *
+     * @param owner the owner
+     * @return the response entity
      */
-    @GetMapping("/details/{owner}")
-    ResponseEntity<Double> calculateOwnerTax(@PathVariable  String owner);
+    ResponseEntity<Double> calculateOwnerTax(@PathVariable String owner);
 
     /**
      * Finds most similar Estate objects from database
+     *
+     * @param searchEstateDto the search estate dto
+     * @return the response entity
      */
-    @PostMapping("/details")
     ResponseEntity<List<EstateDto>> findSimilarEstate(@RequestBody SearchEstateDto searchEstateDto);
 }

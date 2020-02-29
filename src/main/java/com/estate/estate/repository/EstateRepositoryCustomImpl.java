@@ -22,15 +22,21 @@ public class EstateRepositoryCustomImpl implements EstateRepositoryCustom {
     private EntityManager entityManager;
 
     @Override
+
     public List<Estate> customSearch(SearchEstate searchEstate) {
+
         String createdSearchQuerryString = createSearchString(searchEstate);
         TypedQuery<Estate> querry = entityManager.createQuery(createdSearchQuerryString, Estate.class);
         setParmeters(querry, searchEstate);
+        if (searchEstate.isLimitTo3()) {
+            //limit result max 3 estates
+            querry.setMaxResults(3);
+        }
         return querry.getResultList();
     }
-
     private String createSearchString(SearchEstate searchEstate) {
         Assert.isTrue(searchEstate != null, "search object cannot be null");
+
         StringBuilder querryString = new StringBuilder("SELECT e FROM Estate e WHERE ");
         if (searchEstate.getBuildingType() != null) {
             querryString.append(" e.estateType = :buildingType and ");
@@ -44,7 +50,7 @@ public class EstateRepositoryCustomImpl implements EstateRepositoryCustom {
         querryString.append(" 1=1 ");
 
         if (searchEstate.getSize() != null) {
-            querryString.append(" order by ABS(e.propertySize - :size)  ");
+            querryString.append(" order by ABS(e.propertySize - :size) ");
         }
 
         return querryString.toString();

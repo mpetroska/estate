@@ -11,7 +11,7 @@ import javax.persistence.*;
 public class Estate {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval=true)
